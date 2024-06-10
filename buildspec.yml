@@ -22,6 +22,6 @@ phases:
       - docker images ls -a
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$REPOSITORY:$IMAGE_TAG
 
-  artifacts:
+artifacts:
     files: imagedefinitions.json
    
