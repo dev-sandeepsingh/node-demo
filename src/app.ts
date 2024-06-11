@@ -5,7 +5,7 @@ const host = '127.0.0.1';
 const port = 3000;
 
 app.get('/', (req: Request, res: Response) => {
-    res.send('Hello Dev, Welcome to express!!');
+    res.send('Hello Dev, Welcome to express application!!');
 });
 
 app.get('/health', (req: Request, res: Response) => {
