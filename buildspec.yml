@@ -15,12 +15,13 @@ phases:
     commands:
       - echo 'Building the image'
       - docker build -t $REPOSITORY .
-      - docker tag $REPOSITORY:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$tradeaze:$IMAGE_TAG
+      - docker tag $REPOSITORY:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$REPOSITORY:$IMAGE_TAG
   post_build:
     commands:
       - echo 'Push to Amazon ECR...'
       - docker images ls -a
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$REPOSITORY:$IMAGE_TAG
+      docker push 708777023385.dkr.ecr.ca-central-1.amazonaws.com/nodejs-server:latest
       - echo Writing image definitions file...
       - printf '[{"name":"%s","imageUri":"%s"}]' $REPOSITORY $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
 
