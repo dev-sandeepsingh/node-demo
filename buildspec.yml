@@ -3,25 +3,25 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 18.17.1
+      nodejs: 18
     commands:
       - echo Installing source NPM dependencies...
       - npm install --force
-  build-application:
-    commands:
-      - npm run get-env-vars dev2 # TODO: Make this dynamic based on the branch
-      - npm run build:api
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.eu-west-2.amazonaws.com
   build:
     commands:
       - echo 'Building the image'
       - docker build -t $REPOSITORY .
-      - docker tag $REPOSITORY:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$REPOSITORY:$IMAGE_TAG
+      - docker tag $REPOSITORY:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$tradeaze:$IMAGE_TAG
   post_build:
     commands:
       - echo 'Push to Amazon ECR...'
       - docker images ls -a
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$REPOSITORY:$IMAGE_TAG
+
+artifacts:
+  files:
+    - imagedefinitions.json
