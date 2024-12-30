@@ -77,3 +77,76 @@ const findDuplicates = (arr) => {
 const numbers = [1, 2, 3, 4, 2, 3, 5, 6, 7, 3];
 const duplicates = findDuplicates(numbers);
 console.log(duplicates); // Output: [2, 3]
+
+
+// Find the Largest and Smallest Element in an Array
+
+const findSmallestAndLargestNumber = (input) => {
+    let smallest = input[0];
+    let largest = input[0];
+    for (i = 0; i < input.length; i++) {
+        if (smallest > input[i]) {
+            smallest = input[i];
+        }
+        if (largest < input[i]) {
+            largest = input[i];
+        }
+    }
+    return { smallest, largest }
+}
+const arr1 = [2, 6, 4, 8, 1, 4, 3, 15, -10]
+const { smallest, largest } = findSmallestAndLargestNumber(arr1);
+console.log(`smallest number ${smallest} and largest number ${largest}`);
+
+// Check if an Array is Sorted
+const checkIfArraySorted = (input) => {
+    let result = true;
+    for (i = 1; i < input.length; i++) {
+        if (input[i - 1] > input[i]) {
+            console.log(input[i]);
+            result = false;
+            break;
+        }
+    }
+    return result;
+}
+const arr2 = [1, 2, 6, 8, 15]
+console.log(checkIfArraySorted(arr2));
+// Remove Duplicates from an Array with set and loop
+const arr3 = [1, 2, 3, 3, 4, 5, 5, 6];
+console.log(new Set(arr3));
+const removeDuplicate = (input) => {
+    const seen = {};
+    const result = [];
+    for (const num of input) {
+        if (!seen[num]) {
+            seen[num] = true;
+            result.push(num);
+        }
+    }
+    return result;
+}
+console.log(removeDuplicate(arr3));
+
+
+// find first non repeating number 
+const arr4 = [1, 2, 1, 2,3, 4, 4, 6, 6];
+const findFirstNonRepeatingNumber = (input) => {
+    for (i = 0; i < input.length; i++) {
+        let isUnique = true;
+        for (j = 0; j < input.length; j++) {
+            if (i !== j && input[i] === input[j]) {
+                isUnique = false;
+                break;
+            }
+        }
+        if(isUnique){                 
+            return input[i];
+        }
+        
+        
+    }
+    return null;
+}
+console.log(findFirstNonRepeatingNumber(arr4));
+
